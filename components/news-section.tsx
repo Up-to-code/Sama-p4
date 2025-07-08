@@ -1,130 +1,109 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Clock, Eye } from "lucide-react"
+import { Clock, ArrowLeft, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { arabicHeadingFont } from "@/lib/fonts"
-
-const newsData = [
-  {
-    id: 1,
-    title: {
-      ar: "الأهلي يفوز على الزمالك في الكلاسيكو المصري",
-      en: "Al Ahly defeats Zamalek in Egyptian Clasico",
-    },
-    excerpt: {
-      ar: "حقق النادي الأهلي فوزاً مثيراً على الزمالك بنتيجة 2-1 في مباراة الكلاسيكو المصري",
-      en: "Al Ahly achieved an exciting 2-1 victory over Zamalek in the Egyptian Clasico",
-    },
-    category: {
-      ar: "كرة القدم",
-      en: "Football",
-    },
-    time: "2 ساعات",
-    views: "15.2K",
-    isBreaking: true,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: 2,
-    title: {
-      ar: "محمد صلاح يسجل هدفين في فوز ليفربول",
-      en: "Mohamed Salah scores twice in Liverpool victory",
-    },
-    excerpt: {
-      ar: "تألق النجم المصري محمد صلاح وسجل هدفين رائعين في فوز ليفربول على مانشستر يونايتد",
-      en: "Egyptian star Mohamed Salah shined and scored two brilliant goals in Liverpool's victory over Manchester United",
-    },
-    category: {
-      ar: "الدوري الإنجليزي",
-      en: "Premier League",
-    },
-    time: "4 ساعات",
-    views: "28.5K",
-    isBreaking: false,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-  {
-    id: 3,
-    title: {
-      ar: "منتخب المغرب يتأهل لنهائي كأس أفريقيا",
-      en: "Morocco national team qualifies for Africa Cup final",
-    },
-    excerpt: {
-      ar: "تأهل المنتخب المغربي لنهائي كأس الأمم الأفريقية بعد فوز مثير على نيجيريا",
-      en: "Morocco national team qualified for the Africa Cup of Nations final after an exciting victory over Nigeria",
-    },
-    category: {
-      ar: "كأس أفريقيا",
-      en: "Africa Cup",
-    },
-    time: "6 ساعات",
-    views: "42.1K",
-    isBreaking: false,
-    image: "/placeholder.svg?height=200&width=300",
-  },
-]
+import { arabicFont, arabicHeadingFont } from "@/lib/fonts"
 
 export function NewsSection() {
-  const { t, language, isRTL } = useLanguage()
+  const { t, isRTL } = useLanguage()
+
+  const newsItems = [
+    {
+      id: 1,
+      title: isRTL ? "الأهلي يفوز بالدوري المصري للمرة الـ42" : "Al Ahly Wins Egyptian League for 42nd Time",
+      excerpt: isRTL
+        ? "حقق النادي الأهلي المصري لقب الدوري المصري الممتاز للمرة الـ42 في تاريخه بعد فوزه على الزمالك في الجولة الأخيرة"
+        : "Al Ahly SC secured their 42nd Egyptian Premier League title after defeating Zamalek in the final round",
+      image: "/placeholder.jpg?height=200&width=300",
+      category: isRTL ? "كرة القدم" : "Football",
+      time: isRTL ? "منذ ساعتين" : "2 hours ago",
+      breaking: true,
+    },
+    {
+      id: 2,
+      title: isRTL ? "منتخب المغرب يتأهل لكأس العالم 2026" : "Morocco National Team Qualifies for 2026 World Cup",
+      excerpt: isRTL
+        ? "تأهل المنتخب المغربي رسمياً لكأس العالم 2026 بعد فوزه على منتخب الجزائر بهدفين مقابل هدف واحد"
+        : "Morocco officially qualifies for the 2026 World Cup after defeating Algeria 2-1 in a crucial match",
+      image: "/placeholder.jpg?height=200&width=300",
+      category: isRTL ? "كرة القدم" : "Football",
+      time: isRTL ? "منذ 4 ساعات" : "4 hours ago",
+      breaking: false,
+    },
+    {
+      id: 3,
+      title: isRTL ? "محمد صلاح يسجل هدفه الـ200 مع ليفربول" : "Mohamed Salah Scores 200th Goal for Liverpool",
+      excerpt: isRTL
+        ? "سجل النجم المصري محمد صلاح هدفه الـ200 مع نادي ليفربول الإنجليزي في مباراة اليوم أمام مانشستر يونايتد"
+        : "Egyptian star Mohamed Salah scored his 200th goal for Liverpool FC in today's match against Manchester United",
+      image: "/placeholder.jpg?height=200&width=300",
+      category: isRTL ? "كرة القدم" : "Football",
+      time: isRTL ? "منذ 6 ساعات" : "6 hours ago",
+      breaking: false,
+    },
+  ]
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
+    <section className="py-16 px-4 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className={`text-center mb-12 ${isRTL ? "text-right" : "text-left"}`}>
           <h2
-            className={`text-4xl font-bold text-gray-900 mb-4 ${arabicHeadingFont.className}`}
+            className={`text-3xl md:text-4xl font-bold text-gray-900 mb-4 ${arabicHeadingFont.className}`}
             style={arabicHeadingFont.style}
           >
-            {t("sportsNews")}
+            {t("latestNews")}
           </h2>
-          <div className="w-24 h-1 bg-green-600 mx-auto"></div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {newsData.map((news) => (
-            <Card key={news.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+          {newsItems.map((item) => (
+            <Card key={item.id} className="overflow-hidden hover-lift bg-white border-0 shadow-lg">
               <div className="relative">
-                <img
-                  src={news.image || "/placeholder.svg"}
-                  alt={news.title[language]}
-                  className="w-full h-48 object-cover"
-                />
-                {news.isBreaking && (
-                  <Badge className="absolute top-4 left-4 bg-red-600 text-white">{t("breakingNews")}</Badge>
+                <img src={item.image || "/placeholder.svg"} alt={item.title} className="w-full h-48 object-cover" />
+                {item.breaking && (
+                  <Badge className="absolute top-4 left-4 bg-red-600 text-white">{isRTL ? "عاجل" : "BREAKING"}</Badge>
                 )}
                 <Badge
                   variant="secondary"
-                  className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"} bg-black/70 text-white`}
+                  className={`absolute bottom-4 ${isRTL ? "left-4" : "right-4"} bg-green-600 text-white`}
                 >
-                  {news.category[language]}
+                  {item.category}
                 </Badge>
               </div>
 
-              <CardHeader>
-                <CardTitle className="text-lg leading-tight line-clamp-2">{news.title[language]}</CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <p className="text-gray-600 mb-4 line-clamp-3">{news.excerpt[language]}</p>
-
+              <CardContent className="p-6">
                 <div
-                  className={`flex items-center justify-between text-sm text-gray-500 mb-4 ${isRTL ? "flex-row-reverse" : ""}`}
+                  className={`flex items-center gap-2 text-sm text-gray-500 mb-3 ${isRTL ? "flex-row-reverse" : ""}`}
                 >
-                  <div className={`flex items-center ${isRTL ? "flex-row-reverse" : ""}`}>
-                    <Clock className={`h-4 w-4 ${isRTL ? "ml-1" : "mr-1"}`} />
-                    {news.time}
-                  </div>
-                  <div className={`flex items-center ${isRTL ? "flex-row-reverse" : ""}`}>
-                    <Eye className={`h-4 w-4 ${isRTL ? "ml-1" : "mr-1"}`} />
-                    {news.views}
-                  </div>
+                  <Clock className="h-4 w-4" />
+                  <span className={arabicFont.className} style={arabicFont.style}>
+                    {item.time}
+                  </span>
                 </div>
 
-                <Button variant="outline" className="w-full bg-transparent">
-                  {t("readMore")}
+                <h3
+                  className={`text-xl font-bold text-gray-900 mb-3 line-clamp-2 ${arabicHeadingFont.className}`}
+                  style={arabicHeadingFont.style}
+                >
+                  {item.title}
+                </h3>
+
+                <p className={`text-gray-600 mb-4 line-clamp-3 ${arabicFont.className}`} style={arabicFont.style}>
+                  {item.excerpt}
+                </p>
+
+                <Button variant="outline" className="w-full group bg-transparent">
+                  <span className={arabicFont.className} style={arabicFont.style}>
+                    {t("readMore")}
+                  </span>
+                  {isRTL ? (
+                    <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
+                  ) : (
+                    <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  )}
                 </Button>
               </CardContent>
             </Card>

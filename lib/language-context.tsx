@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
-import { type Language, getTranslation, type TranslationKey } from "./i18n"
+import { translations, type Language, type TranslationKey } from "./i18n"
 
 interface LanguageContextType {
   language: Language
@@ -17,12 +17,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar")
 
   useEffect(() => {
-    // Set document direction and language
+    // Update document direction and lang attribute
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr"
     document.documentElement.lang = language
   }, [language])
 
-  const t = (key: TranslationKey) => getTranslation(language, key)
+  const t = (key: TranslationKey): string => {
+    return translations[language][key] || translations.en[key] || key
+  }
+
   const isRTL = language === "ar"
 
   return <LanguageContext.Provider value={{ language, setLanguage, t, isRTL }}>{children}</LanguageContext.Provider>

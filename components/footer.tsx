@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { arabicHeadingFont } from "@/lib/fonts"
+import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
 
 export function Footer() {
   const { t, isRTL } = useLanguage()
@@ -29,20 +29,20 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 rtl:space-x-reverse mb-4">
+            <div className={`flex items-center space-x-2 mb-4 ${isRTL ? "space-x-reverse" : ""}`}>
               <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
                 <div className="w-6 h-6 bg-white rounded-full"></div>
               </div>
               <span className={`text-2xl font-bold ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
-                {isRTL ? "رياضة عرب" : "Arab Sports"}
+                {t("heroTitle")}
               </span>
             </div>
-            <p className="text-gray-300 mb-6 leading-relaxed">
+            <p className={`text-gray-300 mb-6 leading-relaxed ${arabicFont.className}`} style={arabicFont.style}>
               {isRTL
                 ? "منصتك الأولى لمتابعة أحدث الأخبار الرياضية والمباريات من العالم العربي والعالم"
                 : "Your premier platform for following the latest sports news and matches from the Arab world and beyond"}
             </p>
-            <div className={`flex space-x-4 rtl:space-x-reverse ${isRTL ? "flex-row-reverse" : ""}`}>
+            <div className={`flex space-x-4 ${isRTL ? "space-x-reverse flex-row-reverse" : ""}`}>
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -58,11 +58,17 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t("quickLinks")}</h3>
+            <h3 className={`text-lg font-semibold mb-4 ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
+              {t("quickLinks")}
+            </h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.key}>
-                  <Link href={link.href} className="text-gray-300 hover:text-green-400 transition-colors">
+                  <Link
+                    href={link.href}
+                    className={`text-gray-300 hover:text-green-400 transition-colors ${arabicFont.className}`}
+                    style={arabicFont.style}
+                  >
                     {t(link.key)}
                   </Link>
                 </li>
@@ -72,8 +78,10 @@ export function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">{t("contact")}</h3>
-            <div className="space-y-2 text-gray-300">
+            <h3 className={`text-lg font-semibold mb-4 ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
+              {t("contact")}
+            </h3>
+            <div className={`space-y-2 text-gray-300 ${arabicFont.className}`} style={arabicFont.style}>
               <p>{isRTL ? "البريد الإلكتروني:" : "Email:"} info@arabsports.com</p>
               <p>{isRTL ? "الهاتف:" : "Phone:"} +20 123 456 789</p>
               <p>
@@ -84,8 +92,8 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>
-            © 2024 {isRTL ? "رياضة عرب" : "Arab Sports"}. {t("allRightsReserved")}.
+          <p className={arabicFont.className} style={arabicFont.style}>
+            © 2024 {t("heroTitle")}. {t("allRightsReserved")}.
           </p>
         </div>
       </div>

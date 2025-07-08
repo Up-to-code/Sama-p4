@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google"
 
-// Primary Arabic font - using a web-safe Arabic font as fallback
+// English fonts
+export const inter = Inter({ subsets: ["latin"] })
+
+// Arabic fonts with fallbacks
 export const arabicFont = {
   className: "font-arabic",
   style: {
@@ -8,13 +11,9 @@ export const arabicFont = {
   },
 }
 
-// Secondary Arabic font for headings
 export const arabicHeadingFont = {
   className: "font-arabic-heading",
   style: {
     fontFamily: '"Loalczishin", "Amiri", "Noto Sans Arabic", "Cairo", sans-serif',
   },
 }
-
-// English font
-export const inter = Inter({ subsets: ["latin"] })

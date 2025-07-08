@@ -203,3 +203,20 @@
     line-height: 1.6;
   }
 }
+
+/* Custom styles for the sports theme */
+.font-serif {
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+.prose h2 {
+  @apply text-2xl font-serif mt-8 mb-4;
+}
+
+.prose h3 {
+  @apply text-xl font-serif mt-6 mb-3;
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed;
+}

@@ -26,7 +26,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
+          <Link href="/" className={`flex items-center space-x-2 ${isRTL ? "space-x-reverse" : ""}`}>
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
               <div className="w-6 h-6 bg-green-600 rounded-full"></div>
             </div>
@@ -34,12 +34,12 @@ export function Navigation() {
               className={`text-2xl font-bold text-white ${arabicHeadingFont.className}`}
               style={arabicHeadingFont.style}
             >
-              {isRTL ? "رياضة عرب" : "Arab Sports"}
+              {t("heroTitle")}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+          <div className={`hidden md:flex items-center space-x-8 ${isRTL ? "space-x-reverse" : ""}`}>
             {navItems.map((item) => (
               <Link
                 key={item.key}
@@ -52,7 +52,7 @@ export function Navigation() {
           </div>
 
           {/* Right side items */}
-          <div className="hidden md:flex items-center space-x-4 rtl:space-x-reverse">
+          <div className={`hidden md:flex items-center space-x-4 ${isRTL ? "space-x-reverse" : ""}`}>
             <Button variant="ghost" size="sm" className="text-white hover:text-green-200">
               <Search className="h-4 w-4" />
             </Button>
@@ -79,9 +79,11 @@ export function Navigation() {
                   {t(item.key)}
                 </Link>
               ))}
-              <div className="flex items-center justify-between px-2 pt-4 border-t border-green-500">
+              <div
+                className={`flex items-center justify-between px-2 pt-4 border-t border-green-500 ${isRTL ? "flex-row-reverse" : ""}`}
+              >
                 <Button variant="ghost" size="sm" className="text-white">
-                  <Search className="h-4 w-4 mr-2" />
+                  <Search className={`h-4 w-4 ${isRTL ? "ml-2" : "mr-2"}`} />
                   {t("search")}
                 </Button>
                 <LanguageSwitcher />

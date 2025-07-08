@@ -1,57 +1,82 @@
+"use client"
+
 import { Card, CardContent } from "@/components/ui/card"
-import { Users, MessageSquare, Shield } from "lucide-react"
+import { Trophy, Users, TrendingUp } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/hero-section"
 import { NewsSection } from "@/components/news-section"
 import { MatchesSection } from "@/components/matches-section"
 import { Footer } from "@/components/footer"
+import { useLanguage } from "@/lib/language-context"
+import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
 
 export default function HomePage() {
+  const { t, isRTL } = useLanguage()
+
   return (
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
+
       {/* Features Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-serif text-[#2F3E2A] text-center mb-12">What Makes Sama Special</h2>
+          <h2
+            className={`text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12 ${arabicHeadingFont.className}`}
+            style={arabicHeadingFont.style}
+          >
+            {isRTL ? "ما يميز منصتنا" : "What Makes Us Special"}
+          </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="bg-[#D4B896] border-none">
+            <Card className="bg-green-50 border-green-200 hover-lift">
               <CardContent className="p-8 text-center">
-                <Users className="h-12 w-12 text-[#2F3E2A] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#2F3E2A] mb-3">Community Driven</h3>
-                <p className="text-[#2F3E2A]/80">
-                  Connect with like-minded individuals and build meaningful relationships through shared interests and
-                  discussions.
+                <Trophy className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                <h3
+                  className={`text-xl font-semibold text-green-800 mb-3 ${arabicHeadingFont.className}`}
+                  style={arabicHeadingFont.style}
+                >
+                  {t("liveMatches")}
+                </h3>
+                <p className={`text-green-700 ${arabicFont.className}`} style={arabicFont.style}>
+                  {t("liveMatchesDesc")}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#B8956A] border-none">
+            <Card className="bg-blue-50 border-blue-200 hover-lift">
               <CardContent className="p-8 text-center">
-                <MessageSquare className="h-12 w-12 text-[#2F3E2A] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#2F3E2A] mb-3">Rich Discussions</h3>
-                <p className="text-[#2F3E2A]/80">
-                  Engage in thoughtful conversations, share your insights, and learn from diverse perspectives in our
-                  blog community.
+                <TrendingUp className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                <h3
+                  className={`text-xl font-semibold text-blue-800 mb-3 ${arabicHeadingFont.className}`}
+                  style={arabicHeadingFont.style}
+                >
+                  {t("breakingNews")}
+                </h3>
+                <p className={`text-blue-700 ${arabicFont.className}`} style={arabicFont.style}>
+                  {t("breakingNewsDesc")}
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="bg-[#2F3E2A] border-none">
+            <Card className="bg-purple-50 border-purple-200 hover-lift">
               <CardContent className="p-8 text-center">
-                <Shield className="h-12 w-12 text-[#F5F1E8] mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-[#F5F1E8] mb-3">Safe & Secure</h3>
-                <p className="text-[#F5F1E8]/80">
-                  Your privacy and security are our top priorities. Enjoy a safe environment for authentic expression
-                  and connection.
+                <Users className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                <h3
+                  className={`text-xl font-semibold text-purple-800 mb-3 ${arabicHeadingFont.className}`}
+                  style={arabicHeadingFont.style}
+                >
+                  {t("teamStats")}
+                </h3>
+                <p className={`text-purple-700 ${arabicFont.className}`} style={arabicFont.style}>
+                  {t("teamStatsDesc")}
                 </p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
+
       <NewsSection />
       <MatchesSection />
       <Footer />
