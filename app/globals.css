@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import Arabic fonts */
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap");
+
+/* Custom Arabic font faces - fallback to web fonts */
+@font-face {
+  font-family: "Smaidead";
+  src: local("Amiri"), local("Noto Sans Arabic"), local("Cairo");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Loalczishin";
+  src: local("Amiri"), local("Noto Sans Arabic"), local("Cairo");
+  font-weight: bold;
+  font-style: normal;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -68,23 +86,29 @@
   }
 }
 
-/* Custom styles for the Sama brand */
-.font-serif {
-  font-family: "Georgia", "Times New Roman", serif;
+/* Arabic font classes */
+.font-arabic {
+  font-family: "Smaidead", "Amiri", "Noto Sans Arabic", "Cairo", sans-serif;
 }
 
-.prose h2 {
-  @apply text-2xl font-serif mt-8 mb-4;
+.font-arabic-heading {
+  font-family: "Loalczishin", "Amiri", "Noto Sans Arabic", "Cairo", sans-serif;
 }
 
-.prose h3 {
-  @apply text-xl font-serif mt-6 mb-3;
+/* RTL support */
+[dir="rtl"] {
+  text-align: right;
 }
 
-.prose p {
-  @apply mb-4 leading-relaxed;
+[dir="rtl"] .rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
 }
 
+[dir="rtl"] .rtl\:flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Line clamping for Arabic text */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -97,4 +121,85 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Smooth transitions for language switching */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Arabic number styling */
+[dir="rtl"] .arabic-numbers {
+  font-feature-settings: "lnum";
+}
+
+/* Custom scrollbar for RTL */
+[dir="rtl"] ::-webkit-scrollbar {
+  width: 8px;
+}
+
+[dir="rtl"] ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+[dir="rtl"] ::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+[dir="rtl"] ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Animation for live indicators */
+@keyframes pulse-green {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Sports-themed gradients */
+.gradient-sports {
+  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
+}
+
+.gradient-field {
+  background: linear-gradient(45deg, #166534 0%, #15803d 50%, #16a34a 100%);
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Arabic text optimization */
+[dir="rtl"] {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Responsive Arabic typography */
+@media (max-width: 768px) {
+  .font-arabic-heading {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .font-arabic {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
 }

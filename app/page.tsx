@@ -1,42 +1,16 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Users, MessageSquare, Shield } from "lucide-react"
+import { Users, MessageSquare, Shield } from "lucide-react"
+import { Navigation } from "@/components/navigation"
+import { HeroSection } from "@/components/hero-section"
+import { NewsSection } from "@/components/news-section"
+import { MatchesSection } from "@/components/matches-section"
+import { Footer } from "@/components/footer"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#F5F1E8]">
-      {/* Hero Section */}
-      <section className="relative py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-serif text-[#2F3E2A] mb-4">Sama</h1>
-            <p className="text-xl md:text-2xl font-semibold text-[#2F3E2A] tracking-wider">THE SKY IS OUR LIMIT</p>
-          </div>
-
-          <p className="text-lg text-[#8B7355] max-w-2xl mx-auto mb-12 leading-relaxed">
-            Welcome to Sama - a platform where ideas take flight and communities thrive. Share your thoughts, connect
-            with others, and explore limitless possibilities.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-[#2F3E2A] hover:bg-[#2F3E2A]/90 text-white">
-              <Link href="/blog">
-                Explore Blog <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-[#2F3E2A] text-[#2F3E2A] hover:bg-[#2F3E2A] hover:text-white bg-transparent"
-            >
-              <Link href="/auth/register">Join Community</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
+    <div className="min-h-screen">
+      <Navigation />
+      <HeroSection />
       {/* Features Section */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
@@ -78,20 +52,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 bg-[#2F3E2A]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-serif text-[#F5F1E8] mb-6">Ready to Soar?</h2>
-          <p className="text-lg text-[#F5F1E8]/80 mb-8 max-w-2xl mx-auto">
-            Join our growing community of thinkers, creators, and dreamers. Your voice matters, and your story deserves
-            to be heard.
-          </p>
-          <Button asChild size="lg" className="bg-[#D4B896] hover:bg-[#B8956A] text-[#2F3E2A]">
-            <Link href="/auth/register">Get Started Today</Link>
-          </Button>
-        </div>
-      </section>
+      <NewsSection />
+      <MatchesSection />
+      <Footer />
     </div>
   )
 }

@@ -2,15 +2,13 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import { LanguageProvider } from "@/lib/language-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Sama - The Sky is Our Limit",
-  description:
-    "A platform where ideas take flight and communities thrive. Share your thoughts, connect with others, and explore limitless possibilities.",
+  title: "رياضة عرب - Arab Sports",
+  description: "منصتك الأولى لمتابعة أحدث الأخبار الرياضية والمباريات من العالم العربي والعالم",
     generator: 'v0.dev'
 }
 
@@ -20,11 +18,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ar" dir="rtl">
       <body className={inter.className}>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   )

@@ -3,126 +3,89 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, User } from "lucide-react"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { Menu, X, Search } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
+import { LanguageSwitcher } from "./language-switcher"
+import { arabicHeadingFont } from "@/lib/fonts"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false) // This would come from auth context
+  const { t, isRTL } = useLanguage()
+
+  const navItems = [
+    { key: "home" as const, href: "/" },
+    { key: "news" as const, href: "/news" },
+    { key: "matches" as const, href: "/matches" },
+    { key: "teams" as const, href: "/teams" },
+    { key: "players" as const, href: "/players" },
+    { key: "standings" as const, href: "/standings" },
+  ]
 
   return (
-    <nav className="bg-[#F5F1E8] border-b border-[#D4B896] sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4">
+    <nav className="bg-gradient-to-r from-green-600 to-emerald-700 shadow-lg sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-[#2F3E2A] rounded-full flex items-center justify-center">
-              <div className="w-4 h-2 bg-[#F5F1E8] rounded-full transform rotate-12"></div>
+          <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <div className="w-6 h-6 bg-green-600 rounded-full"></div>
             </div>
-            <span className="text-2xl font-serif text-[#2F3E2A]">Sama</span>
+            <span
+              className={`text-2xl font-bold text-white ${arabicHeadingFont.className}`}
+              style={arabicHeadingFont.style}
+            >
+              {isRTL ? "رياضة عرب" : "Arab Sports"}
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-              Home
-            </Link>
-            <Link href="/blog" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-              Blog
-            </Link>
-            <Link href="/about" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-              Contact
-            </Link>
+          <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
+            {navItems.map((item) => (
+              <Link
+                key={item.key}
+                href={item.href}
+                className="text-white hover:text-green-200 transition-colors font-medium"
+              >
+                {t(item.key)}
+              </Link>
+            ))}
+          </div>
 
-            {isLoggedIn ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-[#2F3E2A]">
-                    <User className="h-4 w-4 mr-2" />
-                    Account
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-[#F5F1E8] border-[#D4B896]">
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard">Dashboard</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/blog/create">Write Post</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => setIsLoggedIn(false)}>Logout</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <div className="flex items-center space-x-4">
-                <Button asChild variant="ghost" className="text-[#2F3E2A]">
-                  <Link href="/auth/login">Login</Link>
-                </Button>
-                <Button asChild className="bg-[#2F3E2A] hover:bg-[#2F3E2A]/90 text-white">
-                  <Link href="/auth/register">Sign Up</Link>
-                </Button>
-              </div>
-            )}
+          {/* Right side items */}
+          <div className="hidden md:flex items-center space-x-4 rtl:space-x-reverse">
+            <Button variant="ghost" size="sm" className="text-white hover:text-green-200">
+              <Search className="h-4 w-4" />
+            </Button>
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile menu button */}
-          <Button variant="ghost" size="sm" className="md:hidden text-[#2F3E2A]" onClick={() => setIsOpen(!isOpen)}>
+          <Button variant="ghost" size="sm" className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 border-t border-[#D4B896]">
+          <div className="md:hidden py-4 border-t border-green-500">
             <div className="flex flex-col space-y-4">
-              <Link href="/" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                Home
-              </Link>
-              <Link href="/blog" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                Blog
-              </Link>
-              <Link href="/about" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                About
-              </Link>
-              <Link href="/contact" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                Contact
-              </Link>
-
-              {isLoggedIn ? (
-                <>
-                  <Link href="/dashboard" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                    Dashboard
-                  </Link>
-                  <Link href="/blog/create" className="text-[#2F3E2A] hover:text-[#8B7355] transition-colors">
-                    Write Post
-                  </Link>
-                  <Button
-                    variant="ghost"
-                    className="text-[#2F3E2A] justify-start p-0"
-                    onClick={() => setIsLoggedIn(false)}
-                  >
-                    Logout
-                  </Button>
-                </>
-              ) : (
-                <div className="flex flex-col space-y-2 pt-4">
-                  <Button asChild variant="outline" className="border-[#2F3E2A] text-[#2F3E2A] bg-transparent">
-                    <Link href="/auth/login">Login</Link>
-                  </Button>
-                  <Button asChild className="bg-[#2F3E2A] hover:bg-[#2F3E2A]/90 text-white">
-                    <Link href="/auth/register">Sign Up</Link>
-                  </Button>
-                </div>
-              )}
+              {navItems.map((item) => (
+                <Link
+                  key={item.key}
+                  href={item.href}
+                  className="text-white hover:text-green-200 transition-colors font-medium px-2"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {t(item.key)}
+                </Link>
+              ))}
+              <div className="flex items-center justify-between px-2 pt-4 border-t border-green-500">
+                <Button variant="ghost" size="sm" className="text-white">
+                  <Search className="h-4 w-4 mr-2" />
+                  {t("search")}
+                </Button>
+                <LanguageSwitcher />
+              </div>
             </div>
           </div>
         )}
