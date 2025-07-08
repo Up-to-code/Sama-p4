@@ -19,11 +19,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        cairo: ["var(--font-cairo)"],
-        amiri: ["var(--font-amiri)"],
-        "noto-arabic": ["var(--font-noto-arabic)"],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -77,6 +72,10 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        cairo: ["var(--font-cairo)", "var(--font-noto-arabic)", "sans-serif"],
+        amiri: ["var(--font-amiri)", "var(--font-noto-arabic)", "serif"],
       },
     },
   },

@@ -77,8 +77,8 @@ export default function Home() {
         </div>
       </section>
 
-      <NewsSection />
       <MatchesSection />
+      <NewsSection />
       <Footer />
     </div>
   )

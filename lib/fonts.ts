@@ -26,3 +26,18 @@ export const notoArabic = NotoSansArabic({
   subsets: ["arabic"],
   variable: "--font-noto-arabic",
 })
+
+// Compatibility exports for existing components
+export const arabicFont = {
+  className: "font-cairo",
+  style: {
+    fontFamily: "var(--font-cairo), var(--font-noto-arabic), sans-serif",
+  },
+}
+
+export const arabicHeadingFont = {
+  className: "font-amiri",
+  style: {
+    fontFamily: "var(--font-amiri), var(--font-noto-arabic), serif",
+  },
+}

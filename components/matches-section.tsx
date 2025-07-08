@@ -2,253 +2,267 @@
 
 import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
 import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
-import { amiri, cairo } from "@/lib/fonts"
+
+type MatchStatus = "live" | "upcoming" | "finished"
+
+interface Team {
+  name: {
+    ar: string
+    en: string
+  }
+  logo: string
+}
+
+interface Match {
+  id: number
+  homeTeam: Team
+  awayTeam: Team
+  competition: {
+    ar: string
+    en: string
+  }
+  status: MatchStatus
+  time?: string
+  score?: {
+    home: number
+    away: number
+  }
+  date: string
+}
 
 export function MatchesSection() {
-  const { t, language } = useLanguage()
-  const [activeTab, setActiveTab] = useState("live")
+  const { language, t } = useLanguage()
+  const [activeTab, setActiveTab] = useState<MatchStatus>("live")
 
   // Mock match data
-  const liveMatches = [
+  const matches: Match[] = [
     {
       id: 1,
       homeTeam: {
-        ar: "الأهلي",
-        en: "Al Ahly",
+        name: { ar: "الأهلي", en: "Al Ahly" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "الزمالك",
-        en: "Zamalek",
+        name: { ar: "الزمالك", en: "Zamalek" },
+        logo: "/placeholder-logo.svg",
       },
-      homeScore: 2,
-      awayScore: 1,
-      time: "75'",
       competition: {
         ar: "الدوري المصري",
-        en: "Egyptian Premier League",
+        en: "Egyptian League",
       },
+      status: "live",
+      time: "65'",
+      score: { home: 2, away: 1 },
+      date: "2025-07-08",
     },
     {
       id: 2,
       homeTeam: {
-        ar: "الهلال",
-        en: "Al Hilal",
+        name: { ar: "النصر", en: "Al Nassr" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "النصر",
-        en: "Al Nassr",
+        name: { ar: "الهلال", en: "Al Hilal" },
+        logo: "/placeholder-logo.svg",
       },
-      homeScore: 0,
-      awayScore: 0,
-      time: "32'",
       competition: {
         ar: "الدوري السعودي",
-        en: "Saudi Pro League",
+        en: "Saudi League",
       },
+      status: "live",
+      time: "32'",
+      score: { home: 0, away: 0 },
+      date: "2025-07-08",
     },
-  ]
-
-  const upcomingMatches = [
     {
       id: 3,
       homeTeam: {
-        ar: "الترجي",
-        en: "Esperance",
+        name: { ar: "الوداد", en: "Wydad" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "الوداد",
-        en: "Wydad",
-      },
-      date: {
-        ar: "غداً - 20:00",
-        en: "Tomorrow - 20:00",
+        name: { ar: "الرجاء", en: "Raja" },
+        logo: "/placeholder-logo.svg",
       },
       competition: {
-        ar: "دوري أبطال أفريقيا",
-        en: "CAF Champions League",
+        ar: "الدوري المغربي",
+        en: "Moroccan League",
       },
+      status: "upcoming",
+      date: "2025-07-09",
     },
     {
       id: 4,
       homeTeam: {
-        ar: "الرجاء",
-        en: "Raja",
+        name: { ar: "الترجي", en: "Esperance" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "الأهلي",
-        en: "Al Ahly",
-      },
-      date: {
-        ar: "الجمعة - 18:00",
-        en: "Friday - 18:00",
+        name: { ar: "النجم الساحلي", en: "Etoile du Sahel" },
+        logo: "/placeholder-logo.svg",
       },
       competition: {
-        ar: "دوري أبطال أفريقيا",
-        en: "CAF Champions League",
+        ar: "الدوري التونسي",
+        en: "Tunisian League",
       },
+      status: "upcoming",
+      date: "2025-07-10",
     },
-  ]
-
-  const results = [
     {
       id: 5,
       homeTeam: {
-        ar: "الاتحاد",
-        en: "Al Ittihad",
+        name: { ar: "اتحاد جدة", en: "Al-Ittihad" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "الشباب",
-        en: "Al Shabab",
-      },
-      homeScore: 3,
-      awayScore: 1,
-      date: {
-        ar: "أمس",
-        en: "Yesterday",
+        name: { ar: "الأهلي السعودي", en: "Al-Ahli" },
+        logo: "/placeholder-logo.svg",
       },
       competition: {
         ar: "الدوري السعودي",
-        en: "Saudi Pro League",
+        en: "Saudi League",
       },
+      status: "finished",
+      score: { home: 3, away: 2 },
+      date: "2025-07-07",
     },
     {
       id: 6,
       homeTeam: {
-        ar: "الأهلي",
-        en: "Al Ahly",
+        name: { ar: "الجزيرة", en: "Al Jazeera" },
+        logo: "/placeholder-logo.svg",
       },
       awayTeam: {
-        ar: "بيراميدز",
-        en: "Pyramids",
-      },
-      homeScore: 2,
-      awayScore: 0,
-      date: {
-        ar: "أمس",
-        en: "Yesterday",
+        name: { ar: "شباب الأهلي", en: "Shabab Al Ahli" },
+        logo: "/placeholder-logo.svg",
       },
       competition: {
-        ar: "الدوري المصري",
-        en: "Egyptian Premier League",
+        ar: "الدوري الإماراتي",
+        en: "UAE League",
       },
+      status: "finished",
+      score: { home: 1, away: 1 },
+      date: "2025-07-06",
     },
   ]
+
+  const filteredMatches = matches.filter((match) => match.status === activeTab)
 
   return (
     <section className="py-12 bg-gray-50 dark:bg-gray-900">
       <div className="container px-4 md:px-6">
-        <h2 className={`${amiri.variable} font-amiri text-2xl font-bold md:text-3xl mb-6 text-center`}>
-          {language === "ar" ? "المباريات" : "Matches"}
-        </h2>
+        <div className="text-center mb-8">
+          <h2 className={`text-3xl font-bold tracking-tighter ${arabicHeadingFont.className}`}>{t("matches")}</h2>
+          <p className={`mt-2 text-gray-500 dark:text-gray-400 ${arabicFont.className}`}>
+            {language === "ar"
+              ? "تابع أحدث المباريات والنتائج من مختلف البطولات"
+              : "Follow the latest matches and results from various competitions"}
+          </p>
+        </div>
 
-        <Tabs defaultValue="live" className="w-full max-w-3xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="live" className={`${cairo.variable} font-cairo`}>
-              <span className="flex items-center gap-2">
-                <Badge variant="destructive" className="h-2 w-2 rounded-full p-0"></Badge>
-                {t("liveNow")}
+        <Tabs defaultValue="live" className="w-full" onValueChange={(value) => setActiveTab(value as MatchStatus)}>
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="live" className={arabicFont.className}>
+              <span className="flex items-center">
+                {activeTab === "live" && <span className="mr-2 h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>}
+                {t("live")}
               </span>
             </TabsTrigger>
-            <TabsTrigger value="upcoming" className={`${cairo.variable} font-cairo`}>
-              {t("upcomingMatches")}
+            <TabsTrigger value="upcoming" className={arabicFont.className}>
+              {t("upcoming")}
             </TabsTrigger>
-            <TabsTrigger value="results" className={`${cairo.variable} font-cairo`}>
-              {t("results")}
+            <TabsTrigger value="finished" className={arabicFont.className}>
+              {t("finished")}
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="live" className="mt-6 space-y-4">
-            {liveMatches.map((match) => (
-              <Card key={match.id} className="overflow-hidden">
-                <CardContent className="p-4">
-                  <div className="flex flex-col space-y-2">
-                    <div className="text-xs text-muted-foreground">{match.competition[language]}</div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.homeTeam[language]}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-lg font-bold">{match.homeScore}</span>
-                        <span className="text-xs">-</span>
-                        <span className="text-lg font-bold">{match.awayScore}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.awayTeam[language]}</span>
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                      </div>
-                    </div>
-                    <div className="flex justify-center">
-                      <Badge variant="outline" className="animate-pulse">
-                        {match.time}
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
+          {["live", "upcoming", "finished"].map((status) => (
+            <TabsContent key={status} value={status} className="space-y-4">
+              {filteredMatches.length > 0 ? (
+                filteredMatches.map((match) => (
+                  <Card key={match.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                    <CardContent className="p-0">
+                      <div className="p-4 bg-white dark:bg-gray-800">
+                        <div className="flex items-center justify-between mb-2">
+                          <Badge variant="outline" className={`${arabicFont.className} text-xs`}>
+                            {language === "ar" ? match.competition.ar : match.competition.en}
+                          </Badge>
 
-          <TabsContent value="upcoming" className="mt-6 space-y-4">
-            {upcomingMatches.map((match) => (
-              <Card key={match.id} className="overflow-hidden">
-                <CardContent className="p-4">
-                  <div className="flex flex-col space-y-2">
-                    <div className="text-xs text-muted-foreground">{match.competition[language]}</div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.homeTeam[language]}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs">VS</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.awayTeam[language]}</span>
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                      </div>
-                    </div>
-                    <div className="flex justify-center">
-                      <Badge variant="outline">{match.date[language]}</Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
+                          {match.status === "live" && (
+                            <div className="flex items-center">
+                              <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse mr-1"></span>
+                              <span className={`text-xs font-medium text-red-500 ${arabicFont.className}`}>
+                                {match.time}
+                              </span>
+                            </div>
+                          )}
 
-          <TabsContent value="results" className="mt-6 space-y-4">
-            {results.map((match) => (
-              <Card key={match.id} className="overflow-hidden">
-                <CardContent className="p-4">
-                  <div className="flex flex-col space-y-2">
-                    <div className="text-xs text-muted-foreground">{match.competition[language]}</div>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.homeTeam[language]}</span>
+                          {match.status === "upcoming" && (
+                            <span className={`text-xs text-gray-500 ${arabicFont.className}`}>
+                              {new Date(match.date).toLocaleDateString(language === "ar" ? "ar-EG" : "en-US", {
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </span>
+                          )}
+
+                          {match.status === "finished" && match.score && (
+                            <span className={`text-xs font-medium ${arabicFont.className}`}>
+                              {language === "ar" ? "النتيجة النهائية" : "Final Score"}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between py-2">
+                          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                            <img
+                              src={match.homeTeam.logo || "/placeholder.svg"}
+                              alt={language === "ar" ? match.homeTeam.name.ar : match.homeTeam.name.en}
+                              className="w-8 h-8"
+                            />
+                            <span className={`font-medium ${arabicFont.className}`}>
+                              {language === "ar" ? match.homeTeam.name.ar : match.homeTeam.name.en}
+                            </span>
+                          </div>
+
+                          {match.score ? (
+                            <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                              <span className="font-bold text-lg">{match.score.home}</span>
+                              <span className="text-gray-500">-</span>
+                              <span className="font-bold text-lg">{match.score.away}</span>
+                            </div>
+                          ) : (
+                            <div className="text-sm text-gray-500">
+                              {language === "ar" ? "لم تبدأ بعد" : "Not started"}
+                            </div>
+                          )}
+
+                          <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                            <span className={`font-medium ${arabicFont.className}`}>
+                              {language === "ar" ? match.awayTeam.name.ar : match.awayTeam.name.en}
+                            </span>
+                            <img
+                              src={match.awayTeam.logo || "/placeholder.svg"}
+                              alt={language === "ar" ? match.awayTeam.name.ar : match.awayTeam.name.en}
+                              className="w-8 h-8"
+                            />
+                          </div>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-lg font-bold">{match.homeScore}</span>
-                        <span className="text-xs">-</span>
-                        <span className="text-lg font-bold">{match.awayScore}</span>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <span className={`${amiri.variable} font-amiri font-bold`}>{match.awayTeam[language]}</span>
-                        <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800"></div>
-                      </div>
-                    </div>
-                    <div className="flex justify-center">
-                      <Badge variant="secondary">{match.date[language]}</Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className={`text-center py-8 text-gray-500 ${arabicFont.className}`}>
+                  {language === "ar" ? "لا توجد مباريات متاحة حالياً" : "No matches available at the moment"}
+                </div>
+              )}
+            </TabsContent>
+          ))}
         </Tabs>
       </div>
     </section>

@@ -1,50 +1,58 @@
 export type Language = "ar" | "en"
 
-export const translations = {
+export type TranslationKey =
+  | "home"
+  | "about"
+  | "contact"
+  | "login"
+  | "register"
+  | "matches"
+  | "news"
+  | "teams"
+  | "live"
+  | "upcoming"
+  | "finished"
+  | "readMore"
+  | "latestNews"
+  | "popularTeams"
+  | "followUs"
+  | "copyright"
+
+export const translations: Record<Language, Record<TranslationKey, string>> = {
   ar: {
     home: "الرئيسية",
     about: "من نحن",
     contact: "اتصل بنا",
-    blog: "المدونة",
     login: "تسجيل الدخول",
     register: "إنشاء حساب",
-    search: "بحث",
-    latestNews: "أحدث الأخبار",
-    upcomingMatches: "المباريات القادمة",
-    liveNow: "مباشر الآن",
-    results: "النتائج",
-    readMore: "اقرأ المزيد",
-    viewAll: "عرض الكل",
-    subscribe: "اشترك",
-    followUs: "تابعنا",
-    copyright: "جميع الحقوق محفوظة",
-    language: "English",
+    matches: "المباريات",
+    news: "الأخبار",
     teams: "الفرق",
-    players: "اللاعبين",
-    tournaments: "البطولات",
-    statistics: "الإحصائيات",
+    live: "مباشر",
+    upcoming: "قادمة",
+    finished: "منتهية",
+    readMore: "اقرأ المزيد",
+    latestNews: "أحدث الأخبار",
+    popularTeams: "الفرق الشعبية",
+    followUs: "تابعنا",
+    copyright: "جميع الحقوق محفوظة © 2025 رياضة عرب",
   },
   en: {
     home: "Home",
     about: "About",
     contact: "Contact",
-    blog: "Blog",
     login: "Login",
     register: "Register",
-    search: "Search",
-    latestNews: "Latest News",
-    upcomingMatches: "Upcoming Matches",
-    liveNow: "Live Now",
-    results: "Results",
-    readMore: "Read More",
-    viewAll: "View All",
-    subscribe: "Subscribe",
-    followUs: "Follow Us",
-    copyright: "All Rights Reserved",
-    language: "العربية",
+    matches: "Matches",
+    news: "News",
     teams: "Teams",
-    players: "Players",
-    tournaments: "Tournaments",
-    statistics: "Statistics",
+    live: "Live",
+    upcoming: "Upcoming",
+    finished: "Finished",
+    readMore: "Read More",
+    latestNews: "Latest News",
+    popularTeams: "Popular Teams",
+    followUs: "Follow Us",
+    copyright: "All rights reserved © 2025 Arab Sports",
   },
 }
