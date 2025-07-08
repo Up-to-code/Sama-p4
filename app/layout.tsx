@@ -2,7 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/language-context"
-import { inter } from "@/lib/fonts"
+import { inter, cairo, amiri, notoArabic } from "@/lib/fonts"
 
 export const metadata: Metadata = {
   title: "رياضة عرب - Arab Sports",
@@ -17,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={inter.className}>
+      <body
+        className={`${inter.variable} ${cairo.variable} ${amiri.variable} ${notoArabic.variable} ${inter.className}`}
+      >
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
