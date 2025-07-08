@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 
-const config: Config = {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
@@ -19,6 +19,11 @@ const config: Config = {
       },
     },
     extend: {
+      fontFamily: {
+        cairo: ["var(--font-cairo)"],
+        amiri: ["var(--font-amiri)"],
+        "noto-arabic": ["var(--font-noto-arabic)"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

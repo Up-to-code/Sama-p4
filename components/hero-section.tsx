@@ -1,62 +1,44 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Play, TrendingUp } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
+import { Button } from "@/components/ui/button"
+import { amiri } from "@/lib/fonts"
 
 export function HeroSection() {
-  const { t, isRTL } = useLanguage()
+  const { t, language } = useLanguage()
 
   return (
-    <section className="relative min-h-[80vh] bg-gradient-to-br from-green-600 via-emerald-700 to-green-800 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=100&width=100')] bg-repeat opacity-20"></div>
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-32 right-16 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"></div>
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 bg-white/10 rounded-full animate-pulse delay-500"></div>
-
-      <div className="relative max-w-7xl mx-auto px-4 py-20 flex items-center min-h-[80vh]">
-        <div className={`w-full text-center ${isRTL ? "text-right" : "text-left"}`}>
-          <div className="mb-8">
-            <h1
-              className={`text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 ${arabicHeadingFont.className}`}
-              style={arabicHeadingFont.style}
-            >
-              {t("heroTitle")}
-            </h1>
-            <p
-              className={`text-xl md:text-3xl text-green-100 font-semibold tracking-wide ${arabicFont.className}`}
-              style={arabicFont.style}
-            >
-              {t("heroSubtitle")}
-            </p>
+    <section className="relative bg-gradient-to-b from-green-50 to-white py-20 dark:from-green-950 dark:to-background">
+      <div className="container px-4 md:px-6">
+        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+          <div className="flex flex-col justify-center space-y-4">
+            <div className="space-y-2">
+              <h1
+                className={`${amiri.variable} font-amiri text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none`}
+              >
+                {language === "ar" ? "أخبار الرياضة العربية والعالمية" : "Arab and Global Sports News"}
+              </h1>
+              <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                {language === "ar"
+                  ? "تابع أحدث أخبار الرياضة، نتائج المباريات، والتحليلات من جميع أنحاء العالم العربي والعالم"
+                  : "Follow the latest sports news, match results, and analysis from across the Arab world and beyond"}
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+              <Button size="lg">{language === "ar" ? "تصفح الأخبار" : "Browse News"}</Button>
+              <Button variant="outline" size="lg">
+                {language === "ar" ? "جدول المباريات" : "Match Schedule"}
+              </Button>
+            </div>
           </div>
-
-          <p
-            className={`text-lg md:text-xl text-green-50 max-w-3xl mx-auto mb-12 leading-relaxed ${arabicFont.className}`}
-            style={arabicFont.style}
-          >
-            {t("heroDescription")}
-          </p>
-
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center ${isRTL ? "sm:flex-row-reverse" : ""}`}>
-            <Button size="lg" className="bg-white text-green-700 hover:bg-green-50 font-semibold px-8 py-4 text-lg">
-              <Play className={`h-5 w-5 ${isRTL ? "ml-2" : "mr-2"}`} />
-              {t("watchLive")}
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-green-700 font-semibold px-8 py-4 text-lg bg-transparent"
-            >
-              <TrendingUp className={`h-5 w-5 ${isRTL ? "ml-2" : "mr-2"}`} />
-              {t("exploreNews")}
-            </Button>
+          <div className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last">
+            <img
+              alt="Sports Hero"
+              className="aspect-video object-cover"
+              height="310"
+              src="/placeholder.svg?height=310&width=550"
+              width="550"
+            />
           </div>
         </div>
       </div>

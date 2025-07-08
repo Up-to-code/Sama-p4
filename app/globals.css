@@ -2,24 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Arabic fonts */
-@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap");
-
-/* Custom Arabic font faces - fallback to web fonts */
-@font-face {
-  font-family: "Smaidead";
-  src: local("Amiri"), local("Noto Sans Arabic"), local("Cairo");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Loalczishin";
-  src: local("Amiri"), local("Noto Sans Arabic"), local("Cairo");
-  font-weight: bold;
-  font-style: normal;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -28,25 +10,20 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96%;
+    --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
+    --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -56,8 +33,8 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
@@ -68,12 +45,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --ring: 142.4 71.8% 29.2%;
   }
 }
 
@@ -84,139 +56,22 @@
   body {
     @apply bg-background text-foreground;
   }
-}
 
-/* Arabic font classes */
-.font-arabic {
-  font-family: "Smaidead", "Amiri", "Noto Sans Arabic", "Cairo", sans-serif;
-}
-
-.font-arabic-heading {
-  font-family: "Loalczishin", "Amiri", "Noto Sans Arabic", "Cairo", sans-serif;
-}
-
-/* RTL support */
-[dir="rtl"] {
-  text-align: right;
-}
-
-[dir="rtl"] .rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 1;
-}
-
-[dir="rtl"] .rtl\:flex-row-reverse {
-  flex-direction: row-reverse;
-}
-
-/* Line clamping for Arabic text */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Smooth transitions for language switching */
-* {
-  transition: all 0.3s ease;
-}
-
-/* Arabic number styling */
-[dir="rtl"] .arabic-numbers {
-  font-feature-settings: "lnum";
-}
-
-/* Custom scrollbar for RTL */
-[dir="rtl"] ::-webkit-scrollbar {
-  width: 8px;
-}
-
-[dir="rtl"] ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-[dir="rtl"] ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-[dir="rtl"] ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Animation for live indicators */
-@keyframes pulse-green {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-pulse-green {
-  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Sports-themed gradients */
-.gradient-sports {
-  background: linear-gradient(135deg, #059669 0%, #10b981 50%, #34d399 100%);
-}
-
-.gradient-field {
-  background: linear-gradient(45deg, #166534 0%, #15803d 50%, #16a34a 100%);
-}
-
-/* Enhanced hover effects */
-.hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Arabic text optimization */
-[dir="rtl"] {
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
-  text-rendering: optimizeLegibility;
-}
-
-/* Responsive Arabic typography */
-@media (max-width: 768px) {
-  .font-arabic-heading {
-    font-size: 1.5rem;
-    line-height: 1.4;
-  }
-
+  /* Arabic font classes */
   .font-arabic {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-family: var(--font-cairo), var(--font-noto-arabic), sans-serif;
   }
-}
 
-/* Custom styles for the sports theme */
-.font-serif {
-  font-family: "Georgia", "Times New Roman", serif;
-}
+  .font-arabic-heading {
+    font-family: var(--font-amiri), var(--font-noto-arabic), serif;
+  }
 
-.prose h2 {
-  @apply text-2xl font-serif mt-8 mb-4;
-}
+  /* RTL specific adjustments */
+  [dir="rtl"] .space-x-reverse {
+    --tw-space-x-reverse: 1;
+  }
 
-.prose h3 {
-  @apply text-xl font-serif mt-6 mb-3;
-}
-
-.prose p {
-  @apply mb-4 leading-relaxed;
+  [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1;
+  }
 }

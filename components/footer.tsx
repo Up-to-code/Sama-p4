@@ -1,99 +1,74 @@
 "use client"
 
-import Link from "next/link"
-import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 
 export function Footer() {
-  const { t, isRTL } = useLanguage()
-
-  const quickLinks = [
-    { key: "home" as const, href: "/" },
-    { key: "news" as const, href: "/news" },
-    { key: "matches" as const, href: "/matches" },
-    { key: "teams" as const, href: "/teams" },
-    { key: "players" as const, href: "/players" },
-  ]
-
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Youtube, href: "#", label: "YouTube" },
-  ]
+  const { t, language } = useLanguage()
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="md:col-span-2">
-            <div className={`flex items-center space-x-2 mb-4 ${isRTL ? "space-x-reverse" : ""}`}>
-              <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 bg-white rounded-full"></div>
-              </div>
-              <span className={`text-2xl font-bold ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
-                {t("heroTitle")}
-              </span>
-            </div>
-            <p className={`text-gray-300 mb-6 leading-relaxed ${arabicFont.className}`} style={arabicFont.style}>
-              {isRTL
+    <footer className="bg-gray-100 dark:bg-gray-900">
+      <div className="container px-4 py-12 md:px-6">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">رياضة عرب</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              {language === "ar"
                 ? "منصتك الأولى لمتابعة أحدث الأخبار الرياضية والمباريات من العالم العربي والعالم"
                 : "Your premier platform for following the latest sports news and matches from the Arab world and beyond"}
             </p>
-            <div className={`flex space-x-4 ${isRTL ? "space-x-reverse flex-row-reverse" : ""}`}>
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-600 transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="h-5 w-5" />
-                </a>
-              ))}
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">{t("followUs")}</h3>
+            <div className="flex space-x-4">
+              <Button variant="ghost" size="icon">
+                <Facebook className="h-5 w-5" />
+                <span className="sr-only">Facebook</span>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Twitter className="h-5 w-5" />
+                <span className="sr-only">Twitter</span>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Instagram className="h-5 w-5" />
+                <span className="sr-only">Instagram</span>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Youtube className="h-5 w-5" />
+                <span className="sr-only">YouTube</span>
+              </Button>
             </div>
           </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className={`text-lg font-semibold mb-4 ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
-              {t("quickLinks")}
-            </h3>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.key}>
-                  <Link
-                    href={link.href}
-                    className={`text-gray-300 hover:text-green-400 transition-colors ${arabicFont.className}`}
-                    style={arabicFont.style}
-                  >
-                    {t(link.key)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h3 className={`text-lg font-semibold mb-4 ${arabicHeadingFont.className}`} style={arabicHeadingFont.style}>
-              {t("contact")}
-            </h3>
-            <div className={`space-y-2 text-gray-300 ${arabicFont.className}`} style={arabicFont.style}>
-              <p>{isRTL ? "البريد الإلكتروني:" : "Email:"} info@arabsports.com</p>
-              <p>{isRTL ? "الهاتف:" : "Phone:"} +20 123 456 789</p>
-              <p>
-                {isRTL ? "العنوان:" : "Address:"} {isRTL ? "القاهرة، مصر" : "Cairo, Egypt"}
-              </p>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">{t("subscribe")}</h3>
+            <div className="flex space-x-2">
+              <Input placeholder={language === "ar" ? "البريد الإلكتروني" : "Email"} type="email" />
+              <Button>{t("subscribe")}</Button>
             </div>
+          </div>
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold">{language === "ar" ? "روابط سريعة" : "Quick Links"}</h3>
+            <nav className="flex flex-col space-y-2">
+              <a href="#" className="text-sm hover:underline">
+                {t("about")}
+              </a>
+              <a href="#" className="text-sm hover:underline">
+                {t("contact")}
+              </a>
+              <a href="#" className="text-sm hover:underline">
+                {language === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
+              </a>
+              <a href="#" className="text-sm hover:underline">
+                {language === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
+              </a>
+            </nav>
           </div>
         </div>
-
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p className={arabicFont.className} style={arabicFont.style}>
-            © 2024 {t("heroTitle")}. {t("allRightsReserved")}.
+        <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-400">
+            &copy; 2025 رياضة عرب. {t("copyright")}
           </p>
         </div>
       </div>

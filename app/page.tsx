@@ -10,7 +10,7 @@ import { Footer } from "@/components/footer"
 import { useLanguage } from "@/lib/language-context"
 import { arabicHeadingFont, arabicFont } from "@/lib/fonts"
 
-export default function HomePage() {
+export default function Home() {
   const { t, isRTL } = useLanguage()
 
   return (

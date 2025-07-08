@@ -1,6 +1,8 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
 import { LanguageProvider } from "@/lib/language-context"
 import { inter, cairo, amiri, notoArabic } from "@/lib/fonts"
 
@@ -20,7 +22,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${cairo.variable} ${amiri.variable} ${notoArabic.variable} ${inter.className}`}
       >
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   )

@@ -1,34 +1,27 @@
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
-import { translations, type Language, type TranslationKey } from "./i18n"
+import { createContext, useState, useContext, type ReactNode } from "react"
+import { type Language, translations } from "./i18n"
 
-interface LanguageContextType {
+type LanguageContextType = {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: TranslationKey) => string
-  isRTL: boolean
+  t: (key: keyof typeof translations.en) => string
+  dir: "rtl" | "ltr"
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar")
 
-  useEffect(() => {
-    // Update document direction and lang attribute
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr"
-    document.documentElement.lang = language
-  }, [language])
-
-  const t = (key: TranslationKey): string => {
-    return translations[language][key] || translations.en[key] || key
+  const t = (key: keyof typeof translations.en): string => {
+    return translations[language][key] || key
   }
 
-  const isRTL = language === "ar"
+  const dir = language === "ar" ? "rtl" : "ltr"
 
-  return <LanguageContext.Provider value={{ language, setLanguage, t, isRTL }}>{children}</LanguageContext.Provider>
+  return <LanguageContext.Provider value={{ language, setLanguage, t, dir }}>{children}</LanguageContext.Provider>
 }
 
 export function useLanguage() {
